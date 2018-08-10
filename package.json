@@ -7,9 +7,7 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "mapbox-to-ol-style": "^3.4.3",
     "ol": "^5.1.3",
-    "ol-mapbox-style": "^3.0.1",
     "webpack": "^4.16.5",
     "webpack-command": "^0.4.1"
   }
