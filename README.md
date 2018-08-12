@@ -13,20 +13,20 @@ You will an offline map in pbf vector tile format.
 
 Download or create an extract of the area of interest. You can download pre-made extracts in `.mbtiles` format from [OpenMapTiles](https://openmaptiles.com/downloads/planet/) or custom-defined extracts as a single `.osm.pdf` file from [bbbike.org](https://extract.bbbike.org/). We'll assume you have a `.mbtiles` file. The example code is centered on Oakland, CA so it might be a good idea to download the bay area extract for testing.
 
-Assuming your downloaded/extracted file is `map.mbtiles`.
+Assuming your downloaded/extracted file is `map.mbtiles` and assuming you're in the same directory as this `README.md` file.
 
 Download [mbutil](https://github.com/mapbox/mbutil) and convert:
 
 ```
 git clone https://github.com/mapbox/mbutil
 cd mbutil/
-./mb-util --image_format=pbf ../map.mbtiles vector_tiles
-cd ../vector_tiles
+./mb-util --image_format=pbf ../map.mbtiles ../static/vector_tiles
+cd ../static/vector_tiles
 gzip -d -r -S .pbf * # uncompress
 find . -type f -exec mv '{}' '{}'.pbf \; # rename
 ```
 
-Ensure the `vector_tiles/` dir is in the same directory as this REAMDE.md file.
+Ensure the `vector_tiles/` dir is inside the `static/` directory.
 
 # Building
 

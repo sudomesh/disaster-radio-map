@@ -14,7 +14,7 @@ import Point from 'ol/geom/Point.js';
 
 import {Fill, Icon, Stroke, Style, Text} from 'ol/style.js';
 
-import customStyle from './custom_style.js';
+import customStyle from './map_style.js';
 
 // EPSG:3857
 var sudoroomLonLat = [-122.2663397, 37.8350257];
