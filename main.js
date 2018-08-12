@@ -76,7 +76,7 @@ var mainLayer = new VectorTileLayer({
       '© <a href="https://www.openstreetmap.org/copyright">' +
       'OpenStreetMap contributors</a>',
     format: new MVT(),
-    url: 'vector_tiles/' +
+    url: 'maptiles/' +
       '{z}/{x}/{y}.pbf'
 
   }),

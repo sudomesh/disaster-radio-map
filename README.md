@@ -20,13 +20,13 @@ Download [mbutil](https://github.com/mapbox/mbutil) and convert:
 ```
 git clone https://github.com/mapbox/mbutil
 cd mbutil/
-./mb-util --image_format=pbf ../map.mbtiles ../static/vector_tiles
-cd ../static/vector_tiles
+./mb-util --image_format=pbf ../map.mbtiles ../static/maptiles
+cd ../static/maptiles
 gzip -d -r -S .pbf * # uncompress
 find . -type f -exec mv '{}' '{}'.pbf \; # rename
 ```
 
-Ensure the `vector_tiles/` dir is inside the `static/` directory.
+Ensure the `maptiles/` dir is inside the `static/` directory.
 
 # Building
 
