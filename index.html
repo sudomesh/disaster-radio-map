@@ -15,10 +15,38 @@
         bottom: 0;
         width: 100%;
       }
+      
+      #popup {
+        position:absolute;
+        display:none; 
+        width:60px;
+        height:60px;
+        background-color:gray;
+      }
+
+      #controls {
+        position:absolute;
+        bottom: 5px;
+        left: 5px;
+        width:200px;
+        height:40px;
+        background-color:gray;
+        z-index: 1200;
+      }
+
+      #controls .btn {
+        cursor: pointer;
+      }
+
     </style>
   </head>
   <body>
-    <div id="map"></div>
+    <div id="map">
+      <div id="popup">Test</div>
+      <div id="controls">
+        <div id="drop-pin" class="btn">Drop pin</div>
+      </div>
+    </div>
     <script src="./bundle.js"></script>
   </body>
 </html>
