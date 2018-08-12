@@ -37,7 +37,7 @@ npm run build
 # Running
 
 ```
-firefox index.html
+firefox static/index.html
 ```
 
 # Modifying styles
