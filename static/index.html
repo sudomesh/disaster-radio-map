@@ -19,9 +19,36 @@
       #popup {
         position:absolute;
         display:none; 
-        width:60px;
-        height:60px;
-        background-color:gray;
+        width:175px;
+        height:auto;
+        background-color: whitesmoke;
+        border: 1px solid #999;
+      }
+
+      #popup form textarea {
+        margin: 6px;
+        padding: 4px;
+        font-size: 18px;
+        width: 155px;
+      }
+
+      #popup form button {
+        margin: 6px;
+        padding: 4px;
+        font-size: 16px;
+        width: 165px;
+        background-color: rgb(95,195,109);
+        border: 1px solid rgb(60,125,70);
+        color: white;
+      }
+
+      #popup form button:hover,
+      #popup form button:active,
+      #popup form button:focus {
+        background-color: whitesmoke;
+        border: 1px solid #999;
+        color: #333;
+        cursor: pointer;
       }
 
       #controls {
@@ -29,20 +56,35 @@
         bottom: 5px;
         left: 5px;
         width:200px;
-        height:40px;
-        background-color:gray;
+        border: 1px solid steelblue;
         z-index: 1200;
       }
 
       #controls .btn {
+        position: relative;
+        display: block;
+        padding: 6px;
+        background-color:rgba(0,0,0,0.7);
+        color: whitesmoke;
         cursor: pointer;
       }
 
+      #controls .btn:hover,
+      #controls .btn:active,
+      #controls .btn:focus {
+        background-color:whitesmoke;
+        color: black;
+      }
     </style>
   </head>
   <body>
     <div id="map">
-      <div id="popup">Test</div>
+      <div id="popup">
+        <form>
+          <textarea name="description" placeholder="Description" rows="3"></textarea>
+          <button type="submit">Save</button>
+        </form>  
+      </div>
       <div id="controls">
         <div id="drop-pin" class="btn">Drop pin</div>
       </div>
