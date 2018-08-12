@@ -16,6 +16,8 @@ import {Fill, Icon, Stroke, Style, Text} from 'ol/style.js';
 
 import customStyle from './map_style.js';
 
+import Socket from './socket.js'
+
 // EPSG:3857
 var sudoroomLonLat = [-122.2663397, 37.8350257];
 var fooLonLat = [-121.2663397, 37.8350257];
@@ -97,16 +99,9 @@ var myMap = new Map({
 });
 
 
-
-myMap.on("singleclick", function(e){
-  if(state !== 'dropping') return;
-
-  var lonLat = toLonLat(e.coordinate);
-  console.log("Dropped pin:", lonLat);
-
-
+function dropPin(coord) {
   var pointFeature = new Feature({
-    geometry: new Point(e.coordinate),
+    geometry: new Point(coord),
     name: 'Null Island',
     population: 4000,
     rainfall: 500
@@ -124,9 +119,22 @@ myMap.on("singleclick", function(e){
   pointFeature.setStyle(pointStyle);
 
   pointSource.addFeature(pointFeature);
+}
 
-  dropPinBtn.style.backgroundColor = 'gray';
-  state = null;
+myMap.on("singleclick", function(e) {
+  if(state !== 'dropping') return;
+
+  var lonLat = toLonLat(e.coordinate);
+  console.log("Dropped pin:", lonLat);
+
+  dropPin(e.coordinate);
+
+  socketSendPin(lonLat, function(err) {
+    if(err) return alert("Failed to send pin"); // TODO bad
+
+    dropPinBtn.style.backgroundColor = 'gray';
+    state = null;
+  });
 });
 
 
@@ -182,3 +190,46 @@ dropPinBtn.addEventListener('click', function(e) {
   dropPinBtn.style.backgroundColor = 'green';
   
 });
+
+
+
+
+var socket = new Socket('/ws', {debug: true});
+var socketConnected;
+
+socket.connect(function(err, isConnected) {
+  if(err) console.error(err);
+
+  console.log("connected:", isConnected);
+  
+  socketConnected = true;
+});
+
+// send pin over the websocket
+function socketSendPin(pos, cb) {
+  // TODO we should let the user know they're not connected
+  if(!socketConnected) {
+    console.error("socket not connected so not sending pin position");
+    process.nextTick(cb);
+    return;
+  }
+
+  var msg = JSON.stringify(pos);
+
+  socket.send('m', msg, function(err) {
+    if(err) {
+      console.error("Failed to send:", err) // TODO handle better
+      return cb(err)
+    }
+    console.log("Pin position sent!")
+    cb();
+  });
+
+  socket.addListener('m', function(namespace, data) {
+    var lonLat = JSON.parse(data)
+
+    var coord = fromLonLat(lonLat);
+
+    dropPin(coord);
+  })
+}

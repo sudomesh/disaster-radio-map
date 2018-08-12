@@ -5,7 +5,9 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "arraybuffer-to-buffer": "0.0.4"
+  },
   "dependencies": {
     "ol": "^5.1.3",
     "webpack": "^4.16.5",
