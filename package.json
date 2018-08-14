@@ -6,7 +6,8 @@
     "build": "webpack --config webpack.config.js --mode production"
   },
   "devDependencies": {
-    "arraybuffer-to-buffer": "0.0.4"
+    "arraybuffer-to-buffer": "0.0.4",
+    "uuid": "^3.3.2"
   },
   "dependencies": {
     "ol": "^5.1.3",

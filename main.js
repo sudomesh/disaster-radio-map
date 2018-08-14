@@ -14,11 +14,14 @@ import Point from 'ol/geom/Point.js';
 
 import {Fill, Icon, Stroke, Style, Text} from 'ol/style.js';
 
+import {v4 as uuid} from 'uuid';
+
 import customStyle from './map_style.js';
 
 import Socket from './socket.js'
 
-// EPSG:3857
+var allPins = {};
+
 var sudoroomLonLat = [-122.2663397, 37.8350257];
 var fooLonLat = [-121.2663397, 37.8350257];
 var sudoroomCoords = fromLonLat(sudoroomLonLat, 'EPSG:3857');
@@ -99,7 +102,7 @@ var myMap = new Map({
 });
 
 
-function dropPin(coord, type) {
+function dropPin(id, coord, type) {
   var pointFeature = new Feature({
     geometry: new Point(coord),
     name: 'Null Island',
@@ -119,6 +122,7 @@ function dropPin(coord, type) {
   });
 
   pointFeature.setStyle(pointStyle);
+  pointFeature.setId(id);
 
   pointSource.addFeature(pointFeature);
   return pointFeature;
@@ -160,16 +164,17 @@ function startPinCreation(coordinate) {
   
   pinDialogEl.style.display = 'block';  
   pinDialogEl.style.zIndex = 3000;
-  var pin = dropPin(coordinate);
+  var pinId = uuid();
+  var pin = dropPin(pinId, coordinate);
 
   var lonLat = toLonLat(coordinate);
   console.log("Dropped pin:", lonLat);
 
   curPin = {
     coordinate: coordinate,
-    feature: pin
+    feature: pin,
+    id: pinId
   };
-
 }
 
 
@@ -233,9 +238,9 @@ function pinIconSelected(e) {
 }
 
 document.getElementById('save-pin-btn').addEventListener('click', function(e) {
-  var desc = document.getElementById('save-pin-btn').innerHTML;
-  console.log("Desc:", desc);
+  var desc = document.getElementById('pin-description').value;
 
+  curPin.desc = desc;
 
   var lonLat = toLonLat(curPin.coordinate);
   finalizePin(lonLat, curPin.type, desc);
@@ -245,11 +250,11 @@ function finalizePin(lonLat, type, desc) {
   socketSendPin(lonLat, type, desc, function(err) {
     if(err) return console.error(err);
 
+    allPins[curPin.id] = curPin;
     curPin = null;
     dropPinBtn.style.backgroundColor = 'gray';
     pinDialogEl.style.display = 'none';
     state = null;
-
   });
 }
 
@@ -286,9 +291,11 @@ myMap.on('click', function(e) {
   }
   if(geom && typeof geom.getCoordinates === 'function') {
     var coordinates = geom.getCoordinates();
+    var pin = allPins[feature.getId()];
 
     popup.setPosition(coordinates);
 
+    document.getElementById('popup-description').value = pin.desc;
     popupEl.style.display = 'block';
     popupEl.style.zIndex = 1000;
   } else {
@@ -357,6 +364,11 @@ function socketSendPin(pos, type, desc, cb) {
     var lonLat = o.pos;
     var coord = fromLonLat(lonLat);
 
-    dropPin(coord, type);
+    var pinId = uuid();
+    o.id = pinId;
+
+    allPins[pinId] = o;
+
+    dropPin(pinId, coord, type);
   })
 }

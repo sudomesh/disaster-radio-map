@@ -20,7 +20,8 @@
       #popup {
         position:absolute;
         display:none; 
-        width:175px;
+        width: 350px;
+        height: 200px;
         height:auto;
         background-color: whitesmoke;
         border: 1px solid #999;
@@ -29,8 +30,7 @@
       #popup form textarea {
         margin: 6px;
         padding: 4px;
-        font-size: 18px;
-        width: 155px;
+        font-size: 14px;
       }
 
       #popup form button {
@@ -227,8 +227,7 @@
 
       <div id="popup">
         <form>
-          <textarea name="description" placeholder="Description" rows="3"></textarea>
-          <button type="submit">Save</button>
+          <textarea id="popup-description" placeholder="Description" rows="5" cols="40"></textarea>
         </form>  
       </div>
       <div id="controls">
