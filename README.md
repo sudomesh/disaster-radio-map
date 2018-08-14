@@ -3,17 +3,23 @@ This is a simple offline map app for disaster.radio. It uses vector tiles and op
 
 # Requirements
 
-Install node modules:
+## Install required node modules.
+
+Clone the repo, cd to the directory and install required node modules:
 
 ```
 npm install
 ```
 
-You will an offline map in pbf vector tile format.
+## Download your map tiles. 
 
-Download or create an extract of the area of interest. You can download pre-made extracts in `.mbtiles` format from [OpenMapTiles](https://openmaptiles.com/downloads/planet/) or custom-defined extracts as a single `.osm.pdf` file from [bbbike.org](https://extract.bbbike.org/). We'll assume you have a `.mbtiles` file. The example code is centered on Oakland, CA so it might be a good idea to download the bay area extract for testing.
+You will need an offline map in pbf vector tile format.
 
-Assuming your downloaded/extracted file is `map.mbtiles` and assuming you're in the same directory as this `README.md` file.
+Download or create an extract of the area of interest. You can download pre-made extracts in `.mbtiles` format from [OpenMapTiles](https://openmaptiles.com/downloads/planet/) or custom-defined extracts as a single `.osm.pdf` file from [bbbike.org](https://extract.bbbike.org/). We'll assume you have a `.mbtiles` file. The example code is centered on Oakland, CA, so it might be a good idea to download the Bay Area extract for testing.
+
+## Install Mapbox
+
+Assuming your downloaded/extracted file is `map.mbtiles` and assuming you're in the same directory as this `README.md` file,
 
 Download [mbutil](https://github.com/mapbox/mbutil) and convert:
 
@@ -29,13 +35,14 @@ find . -type f -exec mv '{}' '{}'.pbf \; # rename
 Ensure the `maptiles/` dir is inside the `static/` directory.
 
 # Building
-
+Build your map by running:
 ```
 npm run build
 ```
 
 # Running
 
+To display the map in a browser, run:
 ```
 firefox static/index.htm
 ```
@@ -46,4 +53,6 @@ You can modify `custom_style.js` to change the styling and show/hide features. T
 
 # License
 
-AGPLv3
+Code is AGPLv3
+
+Icons derived from Font Awesome, CC-BY-SA 4.0
