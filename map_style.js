@@ -36,19 +36,18 @@ function customStyle(Style, Fill, Stroke, Icon, Text) {
     var maki = feature.get('maki');
     var geom = feature.getGeometry().getType();
     if (layer == 'landcover') {
-      if(cls === 'farmland') {
-        fill.setColor('#00FF00');        
+        if(cls === 'farmland') {
+        fill.setColor('#009900');        
         styles[length++] = polygon;
       } else if(cls === 'wood') {
-        fill.setColor('#00FF00');
+        fill.setColor('#4C990C');
         styles[length++] = polygon;
       } else if(cls === 'grass') {
-        fill.setColor('#00FF00');
+        fill.setColor('#00CC00');
         styles[length++] = polygon;
       } else if(cls === 'wetland') {
-        fill.setColor('#0000FF');
+        fill.setColor('#006666');
         styles[length++] = polygon;
-      }
     }
 
     if (layer == 'transportation') {
