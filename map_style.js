@@ -48,6 +48,7 @@ function customStyle(Style, Fill, Stroke, Icon, Text) {
       } else if(cls === 'wetland') {
         fill.setColor('#006666');
         styles[length++] = polygon;
+      }
     }
 
     if (layer == 'transportation') {
