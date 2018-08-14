@@ -26,26 +26,8 @@ var sudoroomLonLat = [-122.2663397, 37.8350257];
 var fooLonLat = [-121.2663397, 37.8350257];
 var sudoroomCoords = fromLonLat(sudoroomLonLat, 'EPSG:3857');
 
-var pointFeature = new Feature({
-  geometry: new Point(sudoroomCoords),
-  name: 'Null Island',
-  population: 4000,
-  rainfall: 500
-});
-
-var pointStyle = new Style({
-  image: new Icon({
-    anchor: [0.5, 46],
-    anchorXUnits: 'fraction',
-    anchorYUnits: 'pixels',
-    src: 'icon.png'
-  })
-});
-
-pointFeature.setStyle(pointStyle);
-
 var pointSource = new VectorSource({
-  features: [pointFeature]
+  features: []
 });
 
 var pointLayer = new VectorLayer({
@@ -156,9 +138,9 @@ var curPin;
 function startPinCreation(coordinate) {
   state = null;
 
-  document.getElementById('icon-select-step1').style.display = 'block';
-  document.getElementById('icon-select-step2').style.display = 'none';
-  document.getElementById('icon-select-step3').style.display = 'none';
+//  document.getElementById('icon-select-step1').style.display = 'block';
+//  document.getElementById('icon-select-step2').style.display = 'none';
+//  document.getElementById('icon-select-step3').style.display = 'none';
 
   pinDialog.setPosition(coordinate);
   
@@ -168,13 +150,13 @@ function startPinCreation(coordinate) {
   var pin = dropPin(pinId, coordinate);
 
   var lonLat = toLonLat(coordinate);
-  console.log("Dropped pin:", lonLat);
 
   curPin = {
     coordinate: coordinate,
     feature: pin,
     id: pinId
   };
+  pinIconSelect();
 }
 
 
@@ -226,6 +208,7 @@ function pinIconSelected(e) {
   document.getElementById('icon-select-step2').style.display = 'none';
   document.getElementById('icon-select-step3').style.display = 'block';
   document.getElementById('pin-description').value = '';
+  document.getElementById('pin-description').focus();
 
   var filename = e.target.src.split('/').pop();
   var iconName = filename.replace(/\.[^\.]+$/, '');
@@ -271,7 +254,7 @@ var popup = new Overlay({
   element: popupEl,
   positioning: 'bottom-center',
   stopEvent: false,
-  offset: [-30, -100]
+  offset: [10, -160]
 });
 myMap.addOverlay(popup);
 
@@ -371,4 +354,11 @@ function socketSendPin(pos, type, desc, cb) {
 
     dropPin(pinId, coord, type);
   })
+}
+
+
+var sudoId = uuid();
+dropPin(sudoId, sudoroomCoords, 'wifi');
+allPins[sudoId] = {
+  desc: "disaster.radio home base\n\nWiFi and off-grid equipment depot.\n"
 }
