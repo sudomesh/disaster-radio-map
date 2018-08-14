@@ -150,6 +150,7 @@ myMap.addOverlay(popup);
 
 // display popup on click
 myMap.on('click', function(e) {
+  e.stopPropagation();
   var feature = myMap.forEachFeatureAtPixel(
     e.pixel, 
     function(feature) {
