@@ -8,6 +8,7 @@
       html, body {
         margin: 0;
         height: 100%;
+        font-family: sans-serif;
       }
       #map {
         position: absolute;
@@ -75,10 +76,155 @@
         background-color:whitesmoke;
         color: black;
       }
+      
+      #icon-select {
+        position: absolute;
+        display: none;
+/*
+        display: block;
+        top: 100px;
+        left: 100px;
+*/
+        width: 350px;
+        height: 200px;
+        background-color: whitesmoke;
+        border: 1px solid #999;
+        z-index: 1400;
+      }
+
+      #icon-select h3 {
+        font-family: sans-serif;
+        padding: 5px;
+        margin: 5px;
+        font-size: 16px;
+      }
+
+      #icon-select i {
+        color: #000088;
+      }
+
+      #icon-select i.need {
+        color: #880000;
+      }
+
+      #icon-select .controls {
+        padding: 10px;
+        padding-top: 0;
+      }
+
+      #icon-select .controls button {
+        width: 49%;
+      }
+
+      #icon-select-step1 {
+         display: none;
+      }
+
+      #icon-select-step2 {
+         display: block;
+      }
+
+      #icon-select-step3 {
+         display: none;
+      }
+
+      #icon-select .icon-list {
+        padding: 10px;
+        font-size: 14px;
+        clear: left;
+      }
+
+      #icon-select .icon-list .icon-container {
+        width: 60px;
+        float: left;
+      }
+
+      #icon-select .icon-list .icon-container img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+      }
+
+      #icon-select .icon-list .icon-label {
+        text-align: center;
+      }
+
+      #icon-select-step3 .controls {
+        padding: 10px;
+      }
+
+
     </style>
   </head>
   <body>
     <div id="map">
+      <div id="icon-select">
+        <div id="icon-select-step1">
+          <h3>Is this a <i>resource</i> or a <i class="need">need</i> ?</h3>
+          <div class="controls">
+            <button id="resource-btn">It's a resource</button>
+            <button id="need-btn">It's a need</button>
+          </div>
+        </div>
+        <div id="icon-select-step2">
+          <h3>What is <span id="resource-or-need">needed</span>?</h3>
+          <div class="icon-list">
+            <div class="icon-container">
+              <img src="water.png">
+              <div class="icon-label">Water</div>
+            </div>
+            <div class="icon-container">
+              <img src="food.png">
+              <div class="icon-label">Food</div>
+            </div>
+            <div class="icon-container">
+              <img src="medical.png">
+              <div class="icon-label">Medical</div>
+            </div>
+            <div class="icon-container">
+              <img src="shelter.png">
+              <div class="icon-label">Shelter</div>
+            </div>
+            <div class="icon-container">
+              <img src="clothing.png">
+              <div class="icon-label">Clothing</div>
+            </div>
+          </div>
+          <div class="icon-list">
+            <div class="icon-container">
+              <img src="wifi.png">
+              <div class="icon-label">WiFi</div>
+            </div>
+            <div class="icon-container">
+              <img src="power.png">
+              <div class="icon-label">Power</div>
+            </div>
+            <div class="icon-container">
+              <img src="info.png">
+              <div class="icon-label">Info</div>
+            </div>
+            <div class="icon-container">
+              <img src="shower.png">
+              <div class="icon-label">Shower</div>
+            </div>
+            <div class="icon-container">
+              <img src="trash.png">
+              <div class="icon-label">Trash</div>
+            </div>
+          </div>
+        </div>
+        <div id="icon-select-step3">
+          <h3>Add a description</h3>
+
+          <div class="controls">
+            <textarea id="pin-description" placeholder="Description" rows="5" cols="40"></textarea>
+            <br/>
+            <button id="save-pin-btn" type="submit">Save</button>
+          </div>
+        </div>
+      </div>
+
       <div id="popup">
         <form>
           <textarea name="description" placeholder="Description" rows="3"></textarea>
